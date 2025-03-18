@@ -1,0 +1,13 @@
+<!DOCTYPE html><h1>12 Rules For Pro Coders</h1> <p>Master the principles of professional coding with this essential book.</p> <button onClick="async function handleCheckout() {
+    const response = await fetch(&#34;https://procoder-worker-production.greg-l-turnquist.workers.dev/checkout&#34;, {
+      method: &#34;POST&#34;
+    });
+    const data = await response.json();
+    if (data.url) {
+      window.location.href = data.url;
+    } else {
+      alert(&#34;\u26A0\uFE0F Failed to start checkout. Please try again.&#34;);
+    }
+  }" class="buy-button">
+Buy Now
+</button>

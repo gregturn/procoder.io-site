@@ -4,3 +4,9 @@ Allow: /
 
 # Sitemap location
 Sitemap: https://dev.procoder.io/sitemap-index.xml
+
+User-agent: GPTBot
+Disallow: /
+
+User-agent: ChatGPT-User
+Disallow: /

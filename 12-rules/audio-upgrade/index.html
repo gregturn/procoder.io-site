@@ -17,75 +17,9 @@ Written by best-selling author and former Spring teammate Greg Turnquist,
 Don’t miss <strong>YOUR</strong> chance to get the e-book <em>AND</em> the audio version
                                 (recorded by Greg himself) before the price goes up!
 </p> <p class="text-xl"> <span class="line-through text-gray-500 mr-2">$29.00</span> <span class="text-green-700 font-bold">$19.00</span> </p> </div> </div> </div> </div> </div> <!-- Cart Sidebar --> <div class="w-1/3 bg-gray-100 p-4 border-l border-gray-300"> <h2 class="text-xl font-bold mb-4">Your Cart</h2> <ul id="cart-items" class="space-y-2"> <!-- Cart items will be dynamically rendered here --> </ul> <p class="text-lg font-bold mt-4">Total: $<span id="cart-total">0.00</span></p> </div> </section>  <section class="py-4 bg-background text-center"> <div class="site-container"> <a id="cart-checkout-button" href="/12-rules/video-upgrade" class="shadow px-16 py-8 uppercase group relative inline-flex overflow-hidden items-center justify-center rounded-border-small font-medium transition-all duration-300 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 rounded-full flex items-center gap-2 bg-secondary text-black hover:bg-secondary-light focus-visible:ring-secondary hover:ring-2 hover:ring-secondary hover:ring-offset-2 h-10 px-4 py-2 text-small offer-trigger shadow-xl shadow-color:003087 hover:shadow-xl" aria-disabled="false" target="_self"> <span class="absolute left-0 -mt-12 h-32 w-1/2 translate-x-[250%] rotate-12 bg-white opacity-20 transition-all duration-250 ease-out group-hover:translate-x-[2%]"></span> 
-Proceed to Checkout $<span id="cart-checkout-total">0.00</span>  </a> </div> </section> <script type="module">const ebookProduct = {"id":"12rulesforprocoders","name":"12 Rules For Pro Coders (e-book)","url":"/12-rules/offer","price":8.99,"description":"12 Rules for Pro Coders (e-book)","image":{"src":"/_astro/12RulesforProCoders_Medium.CogMb_MR.jpg","width":500,"height":750,"format":"jpg"}};
-const ebookAndAudioBookProduct = {"id":"12rulesforprocoders-ebook+audio","name":"12 Rules for Pro Coders (e-book+audiobook edition)","url":"/12-rules/audio-upgrade","price":19,"description":"e-book + audiobook recorded by Greg himself","image":{"src":"/_astro/12RulesforProCoders_Audiocover.dBP50-60.jpg","width":2400,"height":2400,"format":"jpg","orientation":1}};
+Proceed to Checkout $<span id="cart-checkout-total">0.00</span>  </a> </div> </section> <script>(function(){const twelveRulesProducts = {"ebook":{"id":"12rulesforprocoders","name":"12 Rules For Pro Coders (e-book)","url":"/12-rules/offer","price":8.99,"description":"12 Rules for Pro Coders (e-book)","image":{"src":"/_astro/12RulesforProCoders_Medium.CogMb_MR.jpg","width":500,"height":750,"format":"jpg"}},"ebookAndAudio":{"id":"12rulesforprocoders-ebook+audio","name":"12 Rules for Pro Coders (e-book+audiobook edition)","url":"/12-rules/audio-upgrade","price":19,"description":"e-book + audiobook recorded by Greg himself","image":{"src":"/_astro/12RulesforProCoders_Audiocover.dBP50-60.jpg","width":2400,"height":2400,"format":"jpg","orientation":1}},"ebookAudioAndVideo":{"id":"12rulesforprocoders-video","name":"12 Rules for Pro Coders (e-book+audiobook+video addition)","url":"/12-rules/video-upgrade","price":47,"description":"Adds the video version of 12 Rules for Pro Coders","image":{"src":"/_astro/12RulesforProCoders_Audiocover.dBP50-60.jpg","width":2400,"height":2400,"format":"jpg","orientation":1}}};
 
-        import cart from '/src/scripts/cart.ts';
-
-        document.addEventListener("DOMContentLoaded", () => {
-            // Ensure the eBook is in the cart by default
-            if (!cart.hasItem(ebookProduct.id)) {
-                cart.addItem(ebookProduct);
-                console.log("Default e-book added to cart.");
-            }
-
-            const checkbox = document.getElementById("accept-upgrade");
-            const cartItemsEl = document.getElementById("cart-items");
-            const totalEl = document.getElementById("cart-total");
-
-            function renderCart() {
-                const items = cart.getItems();
-                cartItemsEl.innerHTML = ""; // Clear existing items
-                items.forEach(item => {
-                    const li = document.createElement("li");
-                    li.className = "flex items-center gap-4";
-
-                    // Add product thumbnail
-                    const img = document.createElement("img");
-                    img.src = item.image.src;
-                    img.alt = item.name;
-                    img.className = "h-16 w-auto object-contain rounded shadow";
-
-                    // Add product name and price
-                    const text = document.createElement("span");
-                    text.textContent = `${item.name} - $${item.price.toFixed(2)}`;
-
-                    li.appendChild(img);
-                    li.appendChild(text);
-                    cartItemsEl.appendChild(li);
-                });
-
-                const total = items.reduce((sum, item) => sum + item.price * (item.quantity || 1), 0);
-
-                // Update the sidebar total
-                totalEl.textContent = total.toFixed(2);
-
-                // Update the checkout button total
-                const checkoutTotalEl = document.getElementById("cart-checkout-total");
-                if (checkoutTotalEl) {
-                    checkoutTotalEl.textContent = total.toFixed(2);
-                }
-            }
-
-            checkbox?.addEventListener("change", () => {
-                if (checkbox.checked) {
-                    // Remove eBook and add audiobook
-                    cart.removeItem(ebookProduct.id);
-                    cart.addItem(ebookAndAudioBookProduct);
-                    console.log("e-book removed, e-book+audiobook upgrade added.");
-                } else {
-                    // Remove audiobook and add eBook
-                    cart.removeItem(ebookAndAudioBookProduct.id);
-                    cart.addItem(ebookProduct);
-                    console.log("e-book+audiobook upgrade removed, e-book added.");
-                }
-                renderCart();
-            });
-
-            // Initial render
-            renderCart();
-
-            // Update cart display on cart updates
-            window.addEventListener("cartUpdated", renderCart);
-        });
-    </script>  <a href="/checkout" class="flex items-center gap-2 text-background px-4 py-2 transition fixed top-4 right-4 z-50" id="cart-button"> <div class="relative  text-secondary"> <svg xmlns="http://www.w3.org/2000/svg" stroke-width="2" width="28" height="28" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" fill="none" viewBox="0 0 24 24" class="lucide lucide-shopping-cart">  <circle cx="8" cy="21" r="1"></circle> <circle cx="19" cy="21" r="1"></circle> <path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"></path>  </svg> <span id="cart-count" class="absolute top-[-5px] right-[-10px] bg-secondary text-background-dark text-xs rounded-full w-5 h-5 flex items-center justify-center">0</span> </div> <script type="module">class a{items=[];constructor(){if(typeof localStorage<"u"){const t=localStorage.getItem("cart");if(t)try{this.items=JSON.parse(t),console.log("[cart] Loaded items from localStorage:",this.items)}catch(e){console.warn("[cart] Failed to parse cart from localStorage",e)}}}save(){typeof localStorage<"u"&&(localStorage.setItem("cart",JSON.stringify(this.items)),console.log("[cart] Saved items to localStorage:",this.items))}addItem(t){console.log("[cart] Adding item:",t);const e=this.items.find(o=>o.id===t.id);if(e)e.quantity=(e.quantity||1)+1,console.log("[cart] Increased quantity:",e);else{const o={...t,quantity:1};this.items.push(o),console.log("[cart] Pushed new item:",o)}this.save(),this.dispatchUpdate()}removeItem(t){console.log("[cart] Removing item with ID:",t),this.items=this.items.filter(e=>e.id!==t),this.save(),this.dispatchUpdate()}clear(){this.items=[],this.save(),this.dispatchUpdate()}getTotalCount(){const t=this.items.reduce((e,o)=>e+(o.quantity||1),0);return console.log("[cart] Total count:",t),t}getItems(){return console.log("[cart] getItems called. Current items:",this.items),[...this.items]}hasItem(t){return this.items.some(e=>e.id===t)}dispatchUpdate(){window.dispatchEvent(new CustomEvent("cartUpdated"))}}const i=new a;document.addEventListener("DOMContentLoaded",()=>{const s=document.getElementById("cart-count");function t(){const e=i.getTotalCount();console.log("[CartButton] Total count updated:",e),s.textContent=e.toString()}window.addEventListener("cartUpdated",t),t()});</script> </a>  <!--<ThemeSwitcher />--> <script type="module" src="/_astro/Layout.astro_astro_type_script_index_0_lang.DLBBgGU8.js"></script> </body> </html>
+        window.twelveRulesProducts = twelveRulesProducts;
+    })();</script> <script type="module" src="/_astro/audio-upgrade.astro_astro_type_script_index_0_lang.DjC8-HMz.js"></script>  <a href="/checkout" class="flex items-center gap-2 text-background px-4 py-2 transition fixed top-4 right-4 z-50" id="cart-button"> <div class="relative text-secondary"> <svg xmlns="http://www.w3.org/2000/svg" stroke-width="2" width="28" height="28" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" fill="none" viewBox="0 0 24 24" class="lucide lucide-shopping-cart">  <circle cx="8" cy="21" r="1"></circle> <circle cx="19" cy="21" r="1"></circle> <path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"></path>  </svg> <span id="cart-count" class="absolute top-[-5px] right-[-10px] bg-secondary text-background-dark text-xs rounded-full w-5 h-5 flex items-center justify-center">
+0
+</span> </div> <script type="module" src="/_astro/CartButton.astro_astro_type_script_index_0_lang.B6tv-tYH.js"></script> </a>  <!--<ThemeSwitcher />--> <script type="module" src="/_astro/Layout.astro_astro_type_script_index_0_lang.DLBBgGU8.js"></script> </body> </html>

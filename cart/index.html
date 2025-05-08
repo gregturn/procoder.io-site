@@ -1,0 +1,73 @@
+<!DOCTYPE html><html lang="en"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><link rel="apple-touch-icon" type="image/png" sizes="180x180" href="/favicon-180x180.png"><link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png"><link rel="icon" type="image/png" sizes="192x192" href="/favicon-192x192.png"><link rel="sitemap" href="/sitemap-index.xml"><link rel="canonical" href="https://dev.procoder.io/cart/"><meta name="generator" content="Astro v5.7.9"><title>Pro Coder</title><!-- Google tag (gtag.js) @formatter:off --><script async src="https://www.googletagmanager.com/gtag/js?id=G-X8BZNP13K6"></script> <script>(function(){const measurementId = "G-X8BZNP13K6";
+
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', measurementId);
+})();</script> <!-- Google tag (gtag.js) @formatter:on --><!-- Meta Pixel Code @formatter:off --><script>(function(){const pixel = "874624716839722";
+
+    !function(f,b,e,v,n,t,s)
+    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+        n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+        if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+        n.queue=[];t=b.createElement(e);t.async=!0;
+        t.src=v;s=b.getElementsByTagName(e)[0];
+        s.parentNode.insertBefore(t,s)}(window, document,'script',
+        'https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', pixel);
+    fbq('track', 'PageView');
+})();</script> <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=874624716839722&ev=PageView&noscript=1"></noscript><!-- End Meta Pixel Code @formatter:on --><meta name="description" content="Actionable Advice to Advance Your Career"><meta name="robots" content="index, follow"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet"><!-- Open Graph / Facebook --><meta property="og:type" content="website"><meta property="og:url" content="https://dev.procoder.io/cart/"><meta property="og:title" content="Pro Coder"><meta property="og:description" content="Actionable Advice to Advance Your Career"><!-- Twitter --><meta property="twitter:card" content="summary_large_image"><meta property="twitter:url" content="https://dev.procoder.io/cart/"><meta property="twitter:title" content="Pro Coder"><meta property="twitter:description" content="Actionable Advice to Advance Your Career"><link rel="stylesheet" href="/_astro/_page_.CJLFBjA3.css"></head> <body data-theme="procoder">   <section class="relative bg-primary py-large"> <div class="site-container px-4"> <div class="text-body-dark"> <h1 class="text-3xl font-bold mb-8">🛒 Your Shopping Cart</h1> <div id="cart-container" class="space-y-6"> <!-- Cart items will be injected here --> </div> <div id="cart-summary" class="mt-8 text-xl font-semibold">
+Total: <span id="cart-total">$0.00</span> </div> </div> </div> </section> <script type="module">
+        import cart from '/src/scripts/cart.ts';
+
+            document.addEventListener("DOMContentLoaded", () => {
+                const container = document.getElementById("cart-container");
+                const totalEl = document.getElementById("cart-total");
+
+                const renderCart = () => {
+                    const items = cart.getItems();
+                    container.innerHTML = ""; // Clear the container
+
+                    if (items.length === 0) {
+                        container.innerHTML = "<p>Your cart is currently empty.</p>";
+                        totalEl.textContent = "$0.00";
+                        return;
+                    }
+
+                    let total = 0;
+
+                    items.forEach(item => {
+                        const itemTotal = (item.quantity || 1) * item.price;
+                        total += itemTotal;
+
+                        const div = document.createElement("div");
+                        div.className = "border p-4 rounded shadow flex justify-between items-center";
+
+                        div.innerHTML = `
+                    <div class="flex items-center gap-4">
+                        <img src="${item.image.src}" alt="${item.name}" class="h-16 w-auto object-contain rounded shadow" />
+                        <div>
+                            <p class="font-bold">${item.name}</p>
+                            <p>Quantity: ${item.quantity || 1}</p>
+                            <p>Price: $${item.price.toFixed(2)}</p>
+                        </div>
+                    </div>
+                    <button class="bg-accent text-white px-4 py-2 rounded" data-id="${item.id}">Remove</button>
+                `;
+                        container.appendChild(div);
+                    });
+
+                    totalEl.textContent = `$${total.toFixed(2)}`;
+                };
+
+                container.addEventListener("click", e => {
+                    if (e.target.tagName === "BUTTON") {
+                        const id = e.target.getAttribute("data-id");
+                        cart.removeItem(id); // Remove the item from the cart
+                        renderCart(); // Re-render the cart dynamically
+                    }
+                });
+
+                renderCart(); // Initial render
+            });
+    </script>  <a href="/checkout" class="flex items-center gap-2 text-background px-4 py-2 transition fixed top-4 right-4 z-50" id="cart-button"> <div class="relative  text-secondary"> <svg xmlns="http://www.w3.org/2000/svg" stroke-width="2" width="28" height="28" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" fill="none" viewBox="0 0 24 24" class="lucide lucide-shopping-cart">  <circle cx="8" cy="21" r="1"></circle> <circle cx="19" cy="21" r="1"></circle> <path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"></path>  </svg> <span id="cart-count" class="absolute top-[-5px] right-[-10px] bg-secondary text-background-dark text-xs rounded-full w-5 h-5 flex items-center justify-center">0</span> </div> <script type="module">class a{items=[];constructor(){if(typeof localStorage<"u"){const t=localStorage.getItem("cart");if(t)try{this.items=JSON.parse(t),console.log("[cart] Loaded items from localStorage:",this.items)}catch(e){console.warn("[cart] Failed to parse cart from localStorage",e)}}}save(){typeof localStorage<"u"&&(localStorage.setItem("cart",JSON.stringify(this.items)),console.log("[cart] Saved items to localStorage:",this.items))}addItem(t){console.log("[cart] Adding item:",t);const e=this.items.find(o=>o.id===t.id);if(e)e.quantity=(e.quantity||1)+1,console.log("[cart] Increased quantity:",e);else{const o={...t,quantity:1};this.items.push(o),console.log("[cart] Pushed new item:",o)}this.save(),this.dispatchUpdate()}removeItem(t){console.log("[cart] Removing item with ID:",t),this.items=this.items.filter(e=>e.id!==t),this.save(),this.dispatchUpdate()}clear(){this.items=[],this.save(),this.dispatchUpdate()}getTotalCount(){const t=this.items.reduce((e,o)=>e+(o.quantity||1),0);return console.log("[cart] Total count:",t),t}getItems(){return console.log("[cart] getItems called. Current items:",this.items),[...this.items]}hasItem(t){return this.items.some(e=>e.id===t)}dispatchUpdate(){window.dispatchEvent(new CustomEvent("cartUpdated"))}}const i=new a;document.addEventListener("DOMContentLoaded",()=>{const s=document.getElementById("cart-count");function t(){const e=i.getTotalCount();console.log("[CartButton] Total count updated:",e),s.textContent=e.toString()}window.addEventListener("cartUpdated",t),t()});</script> </a>  <!--<ThemeSwitcher />--> <script type="module" src="/_astro/Layout.astro_astro_type_script_index_0_lang.DLBBgGU8.js"></script> </body> </html>

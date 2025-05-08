@@ -1,4 +1,4 @@
-import{c as s}from"./cart.DfgZkCSH.js";const u=document.getElementById("cart-container"),p=document.getElementById("total-amount");function d(){const n=s.getItems();u.innerHTML=n.length?"":'<p class="text-center">Your cart is empty.</p>';let o=0;n.forEach(t=>{const e=document.createElement("div");e.className="flex flex-col md:flex-row justify-between items-center border p-4 rounded shadow gap-4";const a=t.image?`<img src="${t.image.src}" alt="${t.name}" class="w-20 h-20 object-cover rounded" />`:"";e.innerHTML=`
+import{c as s}from"./cart.Dwi38V3E.js";const u=document.getElementById("cart-container"),p=document.getElementById("total-amount");function d(){const n=s.getItems();u.innerHTML=n.length?"":'<p class="text-center">Your cart is empty.</p>';let o=0;n.forEach(t=>{const e=document.createElement("div");e.className="flex flex-col md:flex-row justify-between items-center border p-4 rounded shadow gap-4";const a=t.image?`<img src="${t.image.src}" alt="${t.name}" class="w-20 h-20 object-cover rounded" />`:"";e.innerHTML=`
                     <div class="flex items-center gap-4">
                         ${a}
                         <div>

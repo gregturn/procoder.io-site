@@ -1,0 +1,163 @@
+<!DOCTYPE html><html lang="en"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><link rel="apple-touch-icon" type="image/png" sizes="180x180" href="/favicon-180x180.png"><link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png"><link rel="icon" type="image/png" sizes="192x192" href="/favicon-192x192.png"><link rel="sitemap" href="/sitemap-index.xml"><link rel="canonical" href="https://dev.procoder.io/articles/medium/2022-05-25_want-to-secure-your-spring-boot-3-app-with-out-managing-all-those-users--47c5a25d23a8/"><meta name="generator" content="Astro v5.7.9"><title>Want to secure your Spring Boot 3 app with OUT managing all those users? | Pro Coder</title><!-- Google tag (gtag.js) @formatter:off --><script async src="https://www.googletagmanager.com/gtag/js?id=G-X8BZNP13K6"></script> <script>(function(){const measurementId = "G-X8BZNP13K6";
+
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', measurementId);
+})();</script> <!-- Google tag (gtag.js) @formatter:on --><meta name="description" content="> The best things in life are free."><meta name="robots" content="index, follow"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet"><!-- Open Graph --><meta property="og:type" content="website"><meta property="og:url" content="https://dev.procoder.io/articles/medium/2022-05-25_want-to-secure-your-spring-boot-3-app-with-out-managing-all-those-users--47c5a25d23a8/"><meta property="og:title" content="Want to secure your Spring Boot 3 app with OUT managing all those users? | Pro Coder"><meta property="og:description" content="> The best things in life are free."><meta property="og:image" content="https://dev.procoder.io/_astro/1_Utby9CMz8HMcwuePcq1vbw.NVnwnGNd.png"><!-- Twitter --><meta property="twitter:card" content="summary_large_image"><meta property="twitter:url" content="https://dev.procoder.io/articles/medium/2022-05-25_want-to-secure-your-spring-boot-3-app-with-out-managing-all-those-users--47c5a25d23a8/"><meta property="twitter:title" content="Want to secure your Spring Boot 3 app with OUT managing all those users? | Pro Coder"><meta property="twitter:description" content="> The best things in life are free."><meta property="twitter:image" content="https://dev.procoder.io/_astro/1_Utby9CMz8HMcwuePcq1vbw.NVnwnGNd.png"><link rel="stylesheet" href="/_astro/_page_.CFMaMIaq.css"></head> <body data-theme="procoder"> <header class="fixed top-0 z-50 w-full left-0"> <div class="site-container mx-auto px-4 mt-4"> <div class="flex justify-between items-center gap-4 bg-primary/90 py-2 lg:py-4 rounded-lg px-4 border-black border"> <a href="/" class="logo uppercase font-logo transition-colors duration-200 font-light text-header-logo hover:text-primary">  <img src="/_astro/ProCoderLogo_white.DI51sbMv_Z1hejQB.webp" alt width="1800" height="1800" loading="lazy" decoding="async" class="w-16 h-auto">  </a> <nav class="relative flex items-center gap-2 lg:gap-8" aria-label="Site Navigation"> <!-- Desktop Menu --> <ul class="hidden lg:flex lg:gap-8 items-center"> <li class="relative group"> <div class="flex items-center gap-1"> <a href="/" class="text-small font-medium uppercase rounded-md px-2 py-1 focus:outline-none focus:ring-2 focus:ring-nav-text-active text-nav-text hover:text-nav-text-hover"> Home  </a> </div>  </li><li class="relative group"> <div class="flex items-center gap-1"> <a href="/bio" class="text-small font-medium uppercase rounded-md px-2 py-1 focus:outline-none focus:ring-2 focus:ring-nav-text-active text-nav-text hover:text-nav-text-hover"> About Greg  </a> </div>  </li><li class="relative group"> <div class="flex items-center gap-1"> <a href="https://procoder.myspreadshop.com" class="text-small font-medium uppercase rounded-md px-2 py-1 focus:outline-none focus:ring-2 focus:ring-nav-text-active text-nav-text hover:text-nav-text-hover"> Merch  </a> </div>  </li> </ul> <!-- Mobile Menu Button --> <button class="mobile-menu-button relative z-30 p-2 border-none cursor-pointer bg-transparent lg:hidden" aria-label="Toggle Menu" aria-expanded="false"> <span class="menu-icon block"> <svg xmlns="http://www.w3.org/2000/svg" stroke-width="2" width="24" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" fill="none" viewBox="0 0 24 24" class="lucide lucide-menu text-nav-mobile-text">  <line x1="4" x2="20" y1="12" y2="12"></line> <line x1="4" x2="20" y1="6" y2="6"></line> <line x1="4" x2="20" y1="18" y2="18"></line>  </svg> </span> <span class="close-icon hidden"> <svg xmlns="http://www.w3.org/2000/svg" stroke-width="2" width="24" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" fill="none" viewBox="0 0 24 24" class="lucide lucide-x text-nav-mobile-text">  <path d="M18 6 6 18"></path> <path d="m6 6 12 12"></path>  </svg> </span> </button> <!-- Mobile Menu Panel --> <div class="mobile-menu fixed inset-0 z-20 px-8 pt-20 bg-primary lg:hidden hidden opacity-0 scale-95 transform transition-all duration-200 ease-out overflow-y-auto"> <ul class="flex flex-col gap-4"> <li> <div class="text-headline-dark"> <div class="flex items-center justify-between"> <a href="/" class="py-1 rounded-md focus:outline-none focus:ring-2 focus:ring-nav-mobile-text-active text-nav-mobile-text hover:text-nav-mobile-text-hover"> Home </a>  </div>  </div> </li><li> <div class="text-headline-dark"> <div class="flex items-center justify-between"> <a href="/bio" class="py-1 rounded-md focus:outline-none focus:ring-2 focus:ring-nav-mobile-text-active text-nav-mobile-text hover:text-nav-mobile-text-hover"> About Greg </a>  </div>  </div> </li><li> <div class="text-headline-dark"> <div class="flex items-center justify-between"> <a href="https://procoder.myspreadshop.com" class="py-1 rounded-md focus:outline-none focus:ring-2 focus:ring-nav-mobile-text-active text-nav-mobile-text hover:text-nav-mobile-text-hover"> Merch </a>  </div>  </div> </li> </ul> </div> <a href="/checkout" class="flex items-center gap-2 text-background px-4 py-2 transition " id="cart-button"> <div class="relative text-secondary"> <svg xmlns="http://www.w3.org/2000/svg" stroke-width="2" width="28" height="28" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" fill="none" viewBox="0 0 24 24" class="lucide lucide-shopping-cart">  <circle cx="8" cy="21" r="1"></circle> <circle cx="19" cy="21" r="1"></circle> <path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"></path>  </svg> <span id="cart-count" class="absolute top-[-5px] right-[-10px] bg-secondary text-background-dark text-xs rounded-full w-5 h-5 flex items-center justify-center">
+0
+</span> </div> <script type="module" src="/_astro/CartButton.astro_astro_type_script_index_0_lang.B9nwxvGF.js"></script> </a> </nav> </div> </div> <script type="module">const v=document.querySelectorAll(".group");v.forEach(s=>{const e=s.querySelector("a"),t=s.querySelector(".submenu"),n=t?.querySelectorAll("a");t&&e&&(s.addEventListener("mouseenter",()=>{l(t,e)}),s.addEventListener("mouseleave",()=>{i(t,e)}),e.addEventListener("keydown",c=>{c.key==="ArrowDown"&&s.children&&(c.preventDefault(),l(t,e),n?.[0]?.focus())}),e.addEventListener("focus",()=>{i(t,e)}),n?.forEach((c,a)=>{c.addEventListener("keydown",d=>{const m=n.length-1;switch(d.key){case"ArrowDown":d.preventDefault(),a<m&&n[a+1].focus();break;case"ArrowUp":d.preventDefault(),a>0?n[a-1].focus():(e.focus(),i(t,e));break;case"Escape":d.preventDefault(),i(t,e),e.focus();break;case"Tab":i(t,e);break}})}),document.addEventListener("focusin",c=>{s&&!s.contains(c.target)&&i(t,e)}))});function l(s,e){s.classList.remove("invisible","opacity-0"),s.classList.add("visible","opacity-100"),e.setAttribute("aria-expanded","true")}function i(s,e){s.classList.add("invisible","opacity-0"),s.classList.remove("visible","opacity-100"),e.setAttribute("aria-expanded","false")}document.querySelectorAll(".mobile-submenu-button").forEach(s=>{s.addEventListener("click",()=>{const e=s.parentElement?.nextElementSibling,t=s.querySelector("svg");if(e){e.classList.toggle("hidden"),t?.classList.toggle("rotate-180");const n=e.classList.contains("hidden")?"false":"true";s.setAttribute("aria-expanded",n)}})});const f=document.querySelector(".mobile-menu-button"),o=document.querySelector(".mobile-menu"),r=document.querySelector(".menu-icon"),u=document.querySelector(".close-icon");f?.addEventListener("click",()=>{o?.classList.contains("hidden")?(document.body.style.overflow="hidden",o?.classList.remove("hidden"),requestAnimationFrame(()=>{o?.classList.remove("opacity-0","scale-95"),o?.classList.add("opacity-100","scale-100")}),r?.classList.add("hidden"),u?.classList.remove("hidden")):(document.body.style.overflow="",o?.classList.add("opacity-0","scale-95"),o?.classList.remove("opacity-100","scale-100"),setTimeout(()=>{o?.classList.add("hidden")},200),r?.classList.remove("hidden"),u?.classList.add("hidden"))});</script> </header>  <div class="w-full h-120 absolute top-0 left-0 z-0 overflow-hidden border-b border-black">  <img src="/_astro/1_Utby9CMz8HMcwuePcq1vbw.NVnwnGNd_Z2ddl6F.webp" alt width="1920" height="1080" loading="lazy" decoding="async" class="w-full h-full object-cover grayscale opacity-20"> <div class="absolute inset-0 bg-primary/10 backdrop-blur-md"></div>  </div> <article class="site-container--small mx-auto px-4 prose relative z-10 pb-base"> <div class="mt-42 mb-12 text-center"> <h1>Want to secure your Spring Boot 3 app with OUT managing all those users?</h1> <div class="flex items-center justify-center gap-4 text-gray-600"> <time datetime="2022-05-25T00:00:00.000Z" class="text-sm text-body-base"> May 25th, 2022 </time> <div class="flex flex-wrap gap-2"> <span class="px-2 py-1 text-sm rounded-sm bg-primary/10 text-primary border-primary border flex items-center justify-center leading-none font-medium"> Imported from Medium </span> </div> </div> </div> <img src="/_astro/1_Utby9CMz8HMcwuePcq1vbw.NVnwnGNd_ZBQViU.webp" alt width="1200" height="675" loading="lazy" decoding="async" class="w-full h-auto rounded-lg border mb-12 border-black"> <div class="mt-8"> <h1 id="want-to-secure-your-spring-boot-3-app-with-out-managing-all-those-users">Want to secure your Spring Boot 3 app with OUT managing all those users?</h1>
+<p>There’s a saying:</p>
+<hr>
+<h3 id="want-to-secure-your-spring-boot-3-app-with-out-managing-all-thoseusers">Want to secure your Spring Boot 3 app with OUT managing all those users?</h3>
+<p>There’s a saying:</p>
+<blockquote>
+<p>The best things in life are free.</p>
+</blockquote>
+<p>While I’m not convinced this is even remotely true, when it comes to offloading user management on a major tech company at no cost, Google is the way to go!</p>
+<p><a href="/articles/medium/2022-05-18_spring-boot-3---oauth-2---youtube--60fc47772d0b">In my previous article</a>, we explored how to register an OAuth 2 application with Google, grab creds, and hook them into Spring Boot.</p>
+<p>The cherry on top, which we’ll cover in THIS article, is how after you let Google authenticate your users FOR YOU, you can then scarf some of that free YouTube data, and sport it on your own web site!</p>
+<p><img  width="800" height="600" loading="lazy" decoding="async" src="/_astro/1_PHZJFkr34pAJ0x93bQ8nBA.DnAOMzcl_1cgQ8m.webp" >In that previous article, we managed to configure all the Spring Boot 3 + Spring Security OAuth 2 goodness along with a Spring Framework <strong>WebClient</strong> wired up to use the OAuth 2 credentials to do all its leg work, making it possible to do remote calls.</p>
+<p>And part of the magic included designing an <strong>OpenFeign-like remote client</strong> pure using a Java interface like this:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto; white-space: pre-wrap; word-wrap: break-word;" tabindex="0" data-language="plaintext"><code><span class="line"><span>interface YouTube {  </span></span>
+<span class="line"><span>  </span></span>
+<span class="line"><span>  @GetExchange("/search?part=snippet&#x26;type=video")  </span></span>
+<span class="line"><span>  SearchListResponse channelVideos( *//* @RequestParam String channelId, *//* @RequestParam int maxResults, *//* @RequestParam Sort order);  </span></span>
+<span class="line"><span>  </span></span>
+<span class="line"><span>  enum Sort {  </span></span>
+<span class="line"><span>    DATE("date"), *//* VIEW\_COUNT("viewCount"), *//* TITLE("title"), *//* RATING("rating");  </span></span>
+<span class="line"><span>  </span></span>
+<span class="line"><span>    private final String type;  </span></span>
+<span class="line"><span>  </span></span>
+<span class="line"><span>    Sort(String type) {  </span></span>
+<span class="line"><span>      this.type = type;  </span></span>
+<span class="line"><span>    }  </span></span>
+<span class="line"><span>  }  </span></span>
+<span class="line"><span>}</span></span></code></pre>
+<p>In case you didn’t catch word, Spring Boot 3 is based on <strong>Java 17</strong>. And one of the coolest features in Java 17 are records, a perfect tool for capturing all the <a href="https://developers.google.com/youtube/v3/docs/search/list">DTOs defined in YouTube’s API</a></p>
+<p>The YouTube service defined up above sports a <strong>SearchListResponse</strong> return type. Based on a simple reading of YouTube’s API, this record definition should do the trick!</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto; white-space: pre-wrap; word-wrap: break-word;" tabindex="0" data-language="plaintext"><code><span class="line"><span>record SearchListResponse(String kind, String etag, String nextPageToken, String prevPageToken, PageInfo pageInfo,  </span></span>
+<span class="line"><span>  SearchResult[] items) {  </span></span>
+<span class="line"><span>}</span></span></code></pre>
+<p>That’s it! This tiny definition provides fields, setters &#x26; getters (slightly different than traditional Java beans), and an all-arg constructor. It’s possible to add additional methods as needed, but as shown, Jackson, the JSON serialization engine autoconfigured by Spring Boot will perfectly convert the JSON response from YouTube into this type.</p>
+<p>Now most of these fields are simple Java types. However, we need to capture <strong>PageInfo</strong> and <strong>SearchResult</strong>. Time for more records!</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto; white-space: pre-wrap; word-wrap: break-word;" tabindex="0" data-language="plaintext"><code><span class="line"><span>record PageInfo(Integer totalResults, Integer resultsPerPage) {  </span></span>
+<span class="line"><span>}</span></span></code></pre>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto; white-space: pre-wrap; word-wrap: break-word;" tabindex="0" data-language="plaintext"><code><span class="line"><span>record SearchResult(String kind, String etag, SearchId id, SearchSnippet snippet) {  </span></span>
+<span class="line"><span>}</span></span></code></pre>
+<p>In these two records, there are a couple additional records needed:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto; white-space: pre-wrap; word-wrap: break-word;" tabindex="0" data-language="plaintext"><code><span class="line"><span>record SearchId(String kind, String videoId, String channelId, String playlistId) {  </span></span>
+<span class="line"><span>}</span></span></code></pre>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto; white-space: pre-wrap; word-wrap: break-word;" tabindex="0" data-language="plaintext"><code><span class="line"><span>record SearchSnippet(String publishedAt, String channelId, String title, String description,  </span></span>
+<span class="line"><span>  Map&#x3C;String, SearchThumbnail> thumbnails, String channelTitle) {  </span></span>
+<span class="line"><span>}</span></span></code></pre>
+<p>The only additional type in these records not seen earlier is a SearchThumbnail:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto; white-space: pre-wrap; word-wrap: break-word;" tabindex="0" data-language="plaintext"><code><span class="line"><span>record SearchThumbnail(String url, Integer width, Integer height) {  </span></span>
+<span class="line"><span>}</span></span></code></pre>
+<p>Since these final records don’t require any more records, we are done!</p>
+<p>It’s Spring MVC controller time, baby.</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto; white-space: pre-wrap; word-wrap: break-word;" tabindex="0" data-language="plaintext"><code><span class="line"><span>@Controller  </span></span>
+<span class="line"><span>public class HomeController {  </span></span>
+<span class="line"><span>  </span></span>
+<span class="line"><span>  private final YouTube youTube;  </span></span>
+<span class="line"><span>  </span></span>
+<span class="line"><span>  public HomeController(YouTube youTube) {  </span></span>
+<span class="line"><span>    this.youTube = youTube;  </span></span>
+<span class="line"><span>  }  </span></span>
+<span class="line"><span>  </span></span>
+<span class="line"><span>  @GetMapping  </span></span>
+<span class="line"><span>  String index(Model model) {  </span></span>
+<span class="line"><span>    model.addAttribute("channelVideos", *//* youTube.channelVideos("UCjukbYOd6pjrMpNMFAOKYyw", 10, YouTube.Sort.*VIEW\_COUNT*));  </span></span>
+<span class="line"><span>    return "index";  </span></span>
+<span class="line"><span>  }  </span></span>
+<span class="line"><span>}</span></span></code></pre>
+<p>This slim little web controller will autowire that YouTube service defined earlier, granting us access to YouTube’s API. The parameters include:</p>
+<ul>
+<li>The ID for a given YouTube channel (no vanity URLs). (Feel free to plug in your own!)</li>
+<li>The number of videos to return for the first page of data.</li>
+<li>The sorting mechanism to use (sort by most views)</li>
+</ul>
+<p>For the tl;dr on the previous article, we already chose <strong>Mustache</strong> as the templating language of choice. It’s slim and trim, making it easy to get a lot done without keeping a reference manual open on your tab-heavy browser (amirite?)</p>
+<p>Since the web controller is returning “index” from the index() method, you need to go down to src/main/resources/templates and create a file named index.mustache. Then start writing your own YouTube user experience:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto; white-space: pre-wrap; word-wrap: break-word;" tabindex="0" data-language="plaintext"><code><span class="line"><span>&#x3C;!doctype html>  </span></span>
+<span class="line"><span>&#x3C;html lang="en">  </span></span>
+<span class="line"><span>&#x3C;head>  </span></span>
+<span class="line"><span>    &#x3C;link href="style.css" rel="stylesheet" type="text/css"/>  </span></span>
+<span class="line"><span>&#x3C;/head>  </span></span>
+<span class="line"><span>&#x3C;body>  </span></span>
+<span class="line"><span>&#x3C;h1>Greetings Learning Spring Boot 3.0 fans!&#x3C;/h1>  </span></span>
+<span class="line"><span>  </span></span>
+<span class="line"><span>&#x3C;p>  </span></span>
+<span class="line"><span>    In this section, we are learning how to make  </span></span>
+<span class="line"><span>    a web app using Spring Boot 3.0 + OAuth 2.0  </span></span>
+<span class="line"><span>&#x3C;/p>  </span></span>
+<span class="line"><span>  </span></span>
+<span class="line"><span>&#x3C;h2>Your Videos&#x3C;/h2>  </span></span>
+<span class="line"><span>&#x3C;table>  </span></span>
+<span class="line"><span>    &#x3C;thead>  </span></span>
+<span class="line"><span>    &#x3C;tr>  </span></span>
+<span class="line"><span>        &#x3C;td>Id&#x3C;/td>  </span></span>
+<span class="line"><span>        &#x3C;td>Published&#x3C;/td>  </span></span>
+<span class="line"><span>        &#x3C;td>Thumbnail&#x3C;/td>  </span></span>
+<span class="line"><span>        &#x3C;td>Title&#x3C;/td>  </span></span>
+<span class="line"><span>        &#x3C;td>Description&#x3C;/td>  </span></span>
+<span class="line"><span>    &#x3C;/tr>  </span></span>
+<span class="line"><span>    &#x3C;/thead>  </span></span>
+<span class="line"><span>    &#x3C;tbody>  </span></span>
+<span class="line"><span>    {{#channelVideos.items}}  </span></span>
+<span class="line"><span>        &#x3C;tr>  </span></span>
+<span class="line"><span>            &#x3C;td>{{id.videoId}}&#x3C;/td>  </span></span>
+<span class="line"><span>            &#x3C;td>{{snippet.publishedAt}}&#x3C;/td>  </span></span>
+<span class="line"><span>            &#x3C;td>  </span></span>
+<span class="line"><span>                &#x3C;a href="https://www.youtube.com/watch?v={{id.videoId}}" target="\_blank">  </span></span>
+<span class="line"><span>                &#x3C;img src="{{snippet.thumbnail.url}}" alt="thumbnail"/>  </span></span>
+<span class="line"><span>                &#x3C;/a>  </span></span>
+<span class="line"><span>            &#x3C;/td>  </span></span>
+<span class="line"><span>            &#x3C;td>{{snippet.title}}&#x3C;/td>  </span></span>
+<span class="line"><span>            &#x3C;td>{{snippet.shortDescription}}&#x3C;/td>  </span></span>
+<span class="line"><span>        &#x3C;/tr>  </span></span>
+<span class="line"><span>    {{/channelVideos.items}}  </span></span>
+<span class="line"><span>    &#x3C;/tbody>  </span></span>
+<span class="line"><span>&#x3C;/table>  </span></span>
+<span class="line"><span>&#x3C;/body></span></span></code></pre>
+<p>This page is mostly good ole’ HTML 5. But in a few places, you’ll notice some Mustache directives, denoted by the double curly bracket wrappers. <strong>{{#channelVideos.items}}</strong> is a signal to take the <strong>channelVideos</strong> model attribute (defined up in the web controller), and navigate to its <strong>items</strong> property.</p>
+<p>And if you remember from the <strong>SearchListResponse</strong> record type, <strong>items</strong> is an array of <strong>SearchResult</strong> objects. The pound sign (#) inside a Mustache directive is a signal to iterate. Every chunk of HTML inside that directive is repeated for every entry.</p>
+<p>Inside the directive, you’ll parts like <strong>{{id.videoId}}</strong>. This tells Mustache to grab the <strong>SearchResult</strong> object, look up its <strong>id</strong> field, and because it’s a subrecord, go into <strong>SearchId</strong> to find the <strong>videoId</strong> field.</p>
+<p><em>TIP: With Mustache, it sometimes take longer to explain a directive with words than just glance and grok.</em></p>
+<p>Now there are a couple show stoppers in this template that may surprise you. The first one is the fact that YouTube actually has more than one thumbnail for each video. First time I rendered this template, I spotted FOUR thumbnails. Not exactly elegant.</p>
+<p>And here’s the rub: <em>Mustache is known as a logic-less templating engine.</em> While engines like Thymeleaf have support for “if” checks, and Mustache has the ability to skip over null-valued fields, anything much slicker than this isn’t possible.</p>
+<p>It means we need to go back to the record backing structure and add more “virtual” fields. And, as you may discover, many YouTube videos have LONG descriptions. So we can ALSO add a “short description” that shortens the description field.</p>
+<p>So let’s revamp things like this:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto; white-space: pre-wrap; word-wrap: break-word;" tabindex="0" data-language="plaintext"><code><span class="line"><span>record SearchSnippet(String publishedAt, String channelId, String title, String description,  </span></span>
+<span class="line"><span>  Map&#x3C;String, SearchThumbnail> thumbnails, String channelTitle) {  </span></span>
+<span class="line"><span>  </span></span>
+<span class="line"><span>  String shortDescription() {  </span></span>
+<span class="line"><span>    if (this.description.length() &#x3C;= 100) {  </span></span>
+<span class="line"><span>      return this.description;  </span></span>
+<span class="line"><span>    }  </span></span>
+<span class="line"><span>    return this.description.substring(0, 100);  </span></span>
+<span class="line"><span>  }  </span></span>
+<span class="line"><span>  </span></span>
+<span class="line"><span>  SearchThumbnail thumbnail() {  </span></span>
+<span class="line"><span>    return this.thumbnails.entrySet().stream() *//* .filter(entry -> entry.getKey().equals("default")) *//* .findFirst() *//* .map(Map.Entry::getValue) *//* .orElse(null);  </span></span>
+<span class="line"><span>  }  </span></span>
+<span class="line"><span>}</span></span></code></pre>
+<p>This updated SearchSnippet now has shortDescription, which is a record’s description field is greater than 100 characters, will return back a substring.</p>
+<p>It also grabs the map of thumbnails and iterates over all the entries until it finds one named “default”.</p>
+<p><em>TIP: To be honest, I kind of prefer having this sort of logic in my Java code, not my template!</em></p>
+<p>With all this in place, we can launch our application! Visit localhost:8080, and Spring Security OAuth 2 should bounce you over to Google’s famous login page:</p>
+<p><img  width="800" height="629" loading="lazy" decoding="async" src="/_astro/1_Utby9CMz8HMcwuePcq1vbw.NVnwnGNd_2nWJ1J.webp" >Yes, I have more than one Google account. (Another GOOD reason to offload such user management to Google!)</p>
+<p>Once you pick your Google account, because you’re requesting YouTube data, Google will further ask you to pick a specific channel:</p>
+<p><img  width="800" height="959" loading="lazy" decoding="async" src="/_astro/1_hMD8OovRwAzzraX5rHD2sw.BEghfWd1_O1pDI.webp" >Yes, I have more than one YouTube channel that I manage in my spare time. (Again, do you really want to manage any of this?)</p>
+<p>Anywho, pick your channel, and then…voila!</p>
+<p><img  width="800" height="644" loading="lazy" decoding="async" src="/_astro/1_hsU6tN2Y7Vq9IWSLKGenkA.CiczOTJa_Z1sKgxn.webp" >The template, rendered in all it’s glory! The thumbnails even have anchor links to open a new tab and watch the video.</p>
+<p>Feel to play around and see what else you can glean from their API. Perhaps other ways to leverage OAuth 2?</p>
+<p>And before you start rubbing your hands in excitement, you should know that not EVERY metric that is served up inside YouTube Studio is available through their API. So don’t be surprised if you can’t replicate every single facet. But still…the thought of building your own system to potentially test out different thumbnails for a new video AUTOMATICALLY is kind of gnarly.</p>
+<p>Stay tuned for my next article, where we’ll delve into writing test cases and why it’s NEVER a bad idea! However, if you simply can’t wait, then check out the video below and get a taste of testing with Spring Boot!</p>
+<p>— Greg</p>
+<p><em>Do you want to get a free tech e-book, be alerted to my discounts, and get even MORE content about SPRING BOOT? Then</em> <a href="https://trnq.st/d2v5"><em>SIGN UP FOR MY NEWSLETTER</em></a><em>.</em></p> </div> <h6>
+Originally published as <i><a rel="canonical" target="_blank" href="https://medium.com/@procoderio/want-to-secure-your-spring-boot-3-app-with-out-managing-all-those-users-47c5a25d23a8">Want to secure your Spring Boot 3 app with OUT managing all those users?</a></i> </h6> </article>   <footer class="bg-background-dark text-body-dark text-small pb-small pt-4"> <div class="site-container mx-auto px-4"> <div class="flex flex-col items-center md:items-start md:flex-row md:justify-between pb-8 border-b border-background-light"> <nav class="flex flex-row justify-center md:justify-start gap-4 md:gap-8"> <div> <a href="/" class="text-small font-medium text-body-dark uppercase focus:outline-none focus:ring-2 focus:ring-nav-text-active transition-colors text-nav-text hover:text-nav-text-hover">Home</a> </div><div> <a href="/whitelist-instructions" class="text-small font-medium text-body-dark uppercase focus:outline-none focus:ring-2 focus:ring-nav-text-active transition-colors text-nav-text hover:text-nav-text-hover">Whitelist Instructions</a> </div> </nav> </div> <div class="mt-8 flex flex-col md:flex-row justify-between items-center text-body-dark"> <div class="text-sm"> <p class="mt-4">
+Actionable Advice to Advance Your Career
+</p>
+© 2025 Greg L. Turnquist. All rights reserved.
+</div> <nav class="mt-4 md:mt-0"> <ul class="flex flex-wrap gap-6"> <li> <a href="/legal/privacy-policy" class="text-sm text-body-dark"> Privacy Policy </a> </li><li> <a href="/legal/terms-of-service" class="text-sm text-body-dark"> Terms of Service </a> </li> </ul> </nav> </div> </div> </footer> <!--<ThemeSwitcher />--> <script type="module" src="/_astro/Layout.astro_astro_type_script_index_0_lang.DLBBgGU8.js"></script> </body> </html>

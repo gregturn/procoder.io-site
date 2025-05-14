@@ -1,0 +1,129 @@
+<!DOCTYPE html><html lang="en"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><link rel="apple-touch-icon" type="image/png" sizes="180x180" href="/favicon-180x180.png"><link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png"><link rel="icon" type="image/png" sizes="192x192" href="/favicon-192x192.png"><link rel="sitemap" href="/sitemap-index.xml"><link rel="canonical" href="https://dev.procoder.io/articles/medium/2022-11-10_using-micrometer-to-trace-your-spring-boot-app-1fe6ff9982ae/"><meta name="generator" content="Astro v5.7.9"><title>Using Micrometer to trace your Spring Boot app | Pro Coder</title><!-- Google tag (gtag.js) @formatter:off --><script async src="https://www.googletagmanager.com/gtag/js?id=G-X8BZNP13K6"></script> <script>(function(){const measurementId = "G-X8BZNP13K6";
+
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', measurementId);
+})();</script> <!-- Google tag (gtag.js) @formatter:on --><meta name="description" content="If there’s one thing that eventually sneaks up on you after building and releasing an application, it’s that something breaks. Yup…"><meta name="robots" content="index, follow"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet"><!-- Open Graph --><meta property="og:type" content="website"><meta property="og:url" content="https://dev.procoder.io/articles/medium/2022-11-10_using-micrometer-to-trace-your-spring-boot-app-1fe6ff9982ae/"><meta property="og:title" content="Using Micrometer to trace your Spring Boot app | Pro Coder"><meta property="og:description" content="If there’s one thing that eventually sneaks up on you after building and releasing an application, it’s that something breaks. Yup…"><meta property="og:image" content="https://dev.procoder.io/_astro/1_bJFzH6OQVsiajWKnPeNWhQ.Cj0NSIJP.png"><!-- Twitter --><meta property="twitter:card" content="summary_large_image"><meta property="twitter:url" content="https://dev.procoder.io/articles/medium/2022-11-10_using-micrometer-to-trace-your-spring-boot-app-1fe6ff9982ae/"><meta property="twitter:title" content="Using Micrometer to trace your Spring Boot app | Pro Coder"><meta property="twitter:description" content="If there’s one thing that eventually sneaks up on you after building and releasing an application, it’s that something breaks. Yup…"><meta property="twitter:image" content="https://dev.procoder.io/_astro/1_bJFzH6OQVsiajWKnPeNWhQ.Cj0NSIJP.png"><link rel="stylesheet" href="/_astro/_page_.CFMaMIaq.css"></head> <body data-theme="procoder"> <header class="fixed top-0 z-50 w-full left-0"> <div class="site-container mx-auto px-4 mt-4"> <div class="flex justify-between items-center gap-4 bg-primary/90 py-2 lg:py-4 rounded-lg px-4 border-black border"> <a href="/" class="logo uppercase font-logo transition-colors duration-200 font-light text-header-logo hover:text-primary">  <img src="/_astro/ProCoderLogo_white.DI51sbMv_Z1hejQB.webp" alt width="1800" height="1800" loading="lazy" decoding="async" class="w-16 h-auto">  </a> <nav class="relative flex items-center gap-2 lg:gap-8" aria-label="Site Navigation"> <!-- Desktop Menu --> <ul class="hidden lg:flex lg:gap-8 items-center"> <li class="relative group"> <div class="flex items-center gap-1"> <a href="/" class="text-small font-medium uppercase rounded-md px-2 py-1 focus:outline-none focus:ring-2 focus:ring-nav-text-active text-nav-text hover:text-nav-text-hover"> Home  </a> </div>  </li><li class="relative group"> <div class="flex items-center gap-1"> <a href="/bio" class="text-small font-medium uppercase rounded-md px-2 py-1 focus:outline-none focus:ring-2 focus:ring-nav-text-active text-nav-text hover:text-nav-text-hover"> About Greg  </a> </div>  </li><li class="relative group"> <div class="flex items-center gap-1"> <a href="https://procoder.myspreadshop.com" class="text-small font-medium uppercase rounded-md px-2 py-1 focus:outline-none focus:ring-2 focus:ring-nav-text-active text-nav-text hover:text-nav-text-hover"> Merch  </a> </div>  </li> </ul> <!-- Mobile Menu Button --> <button class="mobile-menu-button relative z-30 p-2 border-none cursor-pointer bg-transparent lg:hidden" aria-label="Toggle Menu" aria-expanded="false"> <span class="menu-icon block"> <svg xmlns="http://www.w3.org/2000/svg" stroke-width="2" width="24" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" fill="none" viewBox="0 0 24 24" class="lucide lucide-menu text-nav-mobile-text">  <line x1="4" x2="20" y1="12" y2="12"></line> <line x1="4" x2="20" y1="6" y2="6"></line> <line x1="4" x2="20" y1="18" y2="18"></line>  </svg> </span> <span class="close-icon hidden"> <svg xmlns="http://www.w3.org/2000/svg" stroke-width="2" width="24" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" fill="none" viewBox="0 0 24 24" class="lucide lucide-x text-nav-mobile-text">  <path d="M18 6 6 18"></path> <path d="m6 6 12 12"></path>  </svg> </span> </button> <!-- Mobile Menu Panel --> <div class="mobile-menu fixed inset-0 z-20 px-8 pt-20 bg-primary lg:hidden hidden opacity-0 scale-95 transform transition-all duration-200 ease-out overflow-y-auto"> <ul class="flex flex-col gap-4"> <li> <div class="text-headline-dark"> <div class="flex items-center justify-between"> <a href="/" class="py-1 rounded-md focus:outline-none focus:ring-2 focus:ring-nav-mobile-text-active text-nav-mobile-text hover:text-nav-mobile-text-hover"> Home </a>  </div>  </div> </li><li> <div class="text-headline-dark"> <div class="flex items-center justify-between"> <a href="/bio" class="py-1 rounded-md focus:outline-none focus:ring-2 focus:ring-nav-mobile-text-active text-nav-mobile-text hover:text-nav-mobile-text-hover"> About Greg </a>  </div>  </div> </li><li> <div class="text-headline-dark"> <div class="flex items-center justify-between"> <a href="https://procoder.myspreadshop.com" class="py-1 rounded-md focus:outline-none focus:ring-2 focus:ring-nav-mobile-text-active text-nav-mobile-text hover:text-nav-mobile-text-hover"> Merch </a>  </div>  </div> </li> </ul> </div> <a href="/checkout" class="flex items-center gap-2 text-background px-4 py-2 transition " id="cart-button"> <div class="relative text-secondary"> <svg xmlns="http://www.w3.org/2000/svg" stroke-width="2" width="28" height="28" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" fill="none" viewBox="0 0 24 24" class="lucide lucide-shopping-cart">  <circle cx="8" cy="21" r="1"></circle> <circle cx="19" cy="21" r="1"></circle> <path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"></path>  </svg> <span id="cart-count" class="absolute top-[-5px] right-[-10px] bg-secondary text-background-dark text-xs rounded-full w-5 h-5 flex items-center justify-center">
+0
+</span> </div> <script type="module" src="/_astro/CartButton.astro_astro_type_script_index_0_lang.B9nwxvGF.js"></script> </a> </nav> </div> </div> <script type="module">const v=document.querySelectorAll(".group");v.forEach(s=>{const e=s.querySelector("a"),t=s.querySelector(".submenu"),n=t?.querySelectorAll("a");t&&e&&(s.addEventListener("mouseenter",()=>{l(t,e)}),s.addEventListener("mouseleave",()=>{i(t,e)}),e.addEventListener("keydown",c=>{c.key==="ArrowDown"&&s.children&&(c.preventDefault(),l(t,e),n?.[0]?.focus())}),e.addEventListener("focus",()=>{i(t,e)}),n?.forEach((c,a)=>{c.addEventListener("keydown",d=>{const m=n.length-1;switch(d.key){case"ArrowDown":d.preventDefault(),a<m&&n[a+1].focus();break;case"ArrowUp":d.preventDefault(),a>0?n[a-1].focus():(e.focus(),i(t,e));break;case"Escape":d.preventDefault(),i(t,e),e.focus();break;case"Tab":i(t,e);break}})}),document.addEventListener("focusin",c=>{s&&!s.contains(c.target)&&i(t,e)}))});function l(s,e){s.classList.remove("invisible","opacity-0"),s.classList.add("visible","opacity-100"),e.setAttribute("aria-expanded","true")}function i(s,e){s.classList.add("invisible","opacity-0"),s.classList.remove("visible","opacity-100"),e.setAttribute("aria-expanded","false")}document.querySelectorAll(".mobile-submenu-button").forEach(s=>{s.addEventListener("click",()=>{const e=s.parentElement?.nextElementSibling,t=s.querySelector("svg");if(e){e.classList.toggle("hidden"),t?.classList.toggle("rotate-180");const n=e.classList.contains("hidden")?"false":"true";s.setAttribute("aria-expanded",n)}})});const f=document.querySelector(".mobile-menu-button"),o=document.querySelector(".mobile-menu"),r=document.querySelector(".menu-icon"),u=document.querySelector(".close-icon");f?.addEventListener("click",()=>{o?.classList.contains("hidden")?(document.body.style.overflow="hidden",o?.classList.remove("hidden"),requestAnimationFrame(()=>{o?.classList.remove("opacity-0","scale-95"),o?.classList.add("opacity-100","scale-100")}),r?.classList.add("hidden"),u?.classList.remove("hidden")):(document.body.style.overflow="",o?.classList.add("opacity-0","scale-95"),o?.classList.remove("opacity-100","scale-100"),setTimeout(()=>{o?.classList.add("hidden")},200),r?.classList.remove("hidden"),u?.classList.add("hidden"))});</script> </header>  <div class="w-full h-120 absolute top-0 left-0 z-0 overflow-hidden border-b border-black">  <img src="/_astro/1_bJFzH6OQVsiajWKnPeNWhQ.Cj0NSIJP_ZlMc2.webp" alt width="1920" height="1080" loading="lazy" decoding="async" class="w-full h-full object-cover grayscale opacity-20"> <div class="absolute inset-0 bg-primary/10 backdrop-blur-md"></div>  </div> <article class="site-container--small mx-auto px-4 prose relative z-10 pb-base"> <div class="mt-42 mb-12 text-center"> <h1>Using Micrometer to trace your Spring Boot app</h1> <div class="flex items-center justify-center gap-4 text-gray-600"> <time datetime="2022-11-10T00:00:00.000Z" class="text-sm text-body-base"> November 10th, 2022 </time> <div class="flex flex-wrap gap-2"> <span class="px-2 py-1 text-sm rounded-sm bg-primary/10 text-primary border-primary border flex items-center justify-center leading-none font-medium"> Imported from Medium </span> </div> </div> </div> <img src="/_astro/1_bJFzH6OQVsiajWKnPeNWhQ.Cj0NSIJP_1zYBAI.webp" alt width="1200" height="675" loading="lazy" decoding="async" class="w-full h-auto rounded-lg border mb-12 border-black"> <div class="mt-8"> <h1 id="using-micrometer-to-trace-your-spring-boot-app">Using Micrometer to trace your Spring Boot app</h1>
+<p>If there’s one thing that eventually sneaks up on you after building and releasing an application, it’s that something breaks. Yup…</p>
+<hr>
+<h3 id="using-micrometer-to-trace-your-spring-bootapp">Using Micrometer to trace your Spring Boot app</h3>
+<p>If there’s one thing that eventually sneaks up on you after building and releasing an application, it’s that something breaks. Yup, applications break and not long after, our manager is asking, “What happened?”</p>
+<p>That’s not the only thing we encounter in the Land of Production. We also sometimes see performance degrade. Certain parts of our system seem bogged down. And once again, the question arises, “What’s going on?”</p>
+<p>This is what tracing affords us. A means to trace an operation through our application combined with metrics showing us what’s eating up all the time. And for this we turn to <strong>Micrometer</strong>.</p>
+<p>Micrometer, launched in 2017 by the Spring team, it a metrics facade. It supports a whole host of tools, but for today we’ll use the open source distributed tracing system Zipkin.</p>
+<h3 id="setting-up-a-spring-boot-3-application">Setting up a Spring Boot 3 application</h3>
+<p>Do you already have a Spring Boot 3 app you’d like to instrument? Great! You can skip on to the next section. In case you don’t, you’ll want to file some very simple steps.</p>
+<ol>
+<li>Visit <a href="https://start.spring.io">https://start.spring.io</a></li>
+<li>Pick your favorite build tool. (I’ll be using <strong>Maven</strong>).</li>
+<li>Pick the latest version of <strong>Spring Boot 3</strong>. (I’ll be using 3.0.0-SNAPSHOT).</li>
+<li>Just leave the project metadata as is.</li>
+<li>From the dependencies panel on the right, pick <strong>Spring Web</strong> and <strong>Actuator</strong></li>
+<li>Click on the <strong>GENERATE</strong> button, download the ZIP file, unpack it, and import it into your favorite IDE!</li>
+</ol>
+<p>With that in place, you’re all set to get going!</p>
+<h3 id="adding-micrometer-to-your-spring-boot-3-application">Adding Micrometer to your Spring Boot 3 application</h3>
+<p>The first step to instrumenting your application is to add Micrometer. Now it’s important to understand that Micrometer actually has two key aspects: <strong>tracing</strong> and <strong>metrics</strong>.</p>
+<ul>
+<li>Tracing — seeing WHAT happened</li>
+<li>Metrics — seeing HOW LONG it took to happen</li>
+</ul>
+<p>Sometimes people want one of the other. But for this article, we’ll do both. And to do that, you need to add the following to your build file:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto; white-space: pre-wrap; word-wrap: break-word;" tabindex="0" data-language="plaintext"><code><span class="line"><span>&#x3C;dependency>  </span></span>
+<span class="line"><span>    &#x3C;groupId>io.micrometer&#x3C;/groupId>  </span></span>
+<span class="line"><span>    &#x3C;artifactId>micrometer-observation&#x3C;/artifactId>  </span></span>
+<span class="line"><span>&#x3C;/dependency>  </span></span>
+<span class="line"><span>&#x3C;dependency>  </span></span>
+<span class="line"><span>    &#x3C;groupId>io.micrometer&#x3C;/groupId>  </span></span>
+<span class="line"><span>    &#x3C;artifactId>micrometer-tracing-bridge-brave&#x3C;/artifactId>  </span></span>
+<span class="line"><span>&#x3C;/dependency>  </span></span>
+<span class="line"><span>&#x3C;dependency>  </span></span>
+<span class="line"><span>    &#x3C;groupId>io.zipkin.reporter2&#x3C;/groupId>  </span></span>
+<span class="line"><span>    &#x3C;artifactId>zipkin-reporter-brave&#x3C;/artifactId>  </span></span>
+<span class="line"><span>&#x3C;/dependency></span></span></code></pre>
+<ul>
+<li>micrometer-observation — this pulls in the Micrometer code responsible for making Observations.</li>
+<li>micrometer-tracing-bridge-brave — this pulls in the Micrometer Tracing facade along with glue code to use Brave, the tracing solution from the Zipkin team.</li>
+<li>zipking-reporter-brave — a little more glue code to adapt Zipkin with Brave.</li>
+</ul>
+<p>There’s a lot of terms thrown in there, so let’s discuss a little further. Micrometer has a concept called an <strong>Observation</strong>. This is when you essentially want to “see” what has happened during a key operation. This could be when a web request is made. Or when a database is accessed. The idea is that you A) start the Observation, B) do the action, and C) stop the Observation.</p>
+<p>What if you wrap an <strong>Observation</strong> around a web method in your Spring MVC controller? Does this mean, that if inside the web controller, a Spring Data repository is invoked, we’d have to repeat the SAME PATTERN there too?</p>
+<p>Yes…and no.</p>
+<h3 id="instrumenting-yourcode">Instrumenting your code</h3>
+<p>Micrometer’s APIs are carefully designed such that when you start an Observation, the context of the scenario is stored and then passed along. For a a classic Spring MVC app, thread locals are used. This is done in a way such that every method in the call stack is able to grab the <strong>Observation</strong> and add to it. Essentially, more information can be gathered.</p>
+<p>So this is the “yes” part of the answer. To trace every step in a call stack, you need to do this pattern in every method.</p>
+<p>But the “no” part is that YOU DON’T HAVE to.</p>
+<p>The Spring team has been working diligently at instrumenting all levels of the portfolio such that it’s already done. Building a Spring MVC controller? The <strong>DispatcherServlet</strong> and all its components will have already started an <strong>Observation</strong> before you web method is called.</p>
+<p>Making a remote HTTP call to a 3rd party service? The Spring Framework team has instrumented <strong>RestTemplate</strong> and <strong>WebClient</strong> so the <strong>Observation</strong> pattern wraps around every remote call made. (And Micrometer is slick enough to pass along the tracing context over network boundaries!)</p>
+<h3 id="running-your-own-copy-ofzipkin">Running your own copy of Zipkin</h3>
+<p>To make the magic happen, you need to run your own copy of Zipkin. Using Docker, this is a snap. Just execute the following command:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto; white-space: pre-wrap; word-wrap: break-word;" tabindex="0" data-language="plaintext"><code><span class="line"><span>docker run -d -p 9411 openzipkin/zipkin:latest</span></span></code></pre>
+<p>Once you execute this, you can then visit the it at localhost:9411.</p>
+<p><img  width="800" height="566" loading="lazy" decoding="async" src="/_astro/1_bJFzH6OQVsiajWKnPeNWhQ.Cj0NSIJP_ZPnCnQ.webp" >With that in place, you just need to do some final tweaking to get your application ready to go.</p>
+<h3 id="configuring-your-spring-boot-application-fortracing">Configuring your Spring Boot application for tracing</h3>
+<p>It doesn’t take much.</p>
+<p>For starters, does your application include spring-boot-starter-actuator? The Actuator module is required for tracing to operate. If not, go update your build file. I’ll wait.</p>
+<p>Now add the following attribute to your <strong>application.properties</strong> file:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto; white-space: pre-wrap; word-wrap: break-word;" tabindex="0" data-language="plaintext"><code><span class="line"><span>*# Trace every action*management.tracing.sampling.probability=1.0</span></span></code></pre>
+<p>By default, Micrometer only traces 10% or 0.1 of the time. This is to avoid taxing your system too much. (Actually a problem I’ve seen in my career is that tracing can get WAY out of control.)</p>
+<blockquote>
+<p>We’re ONLY dialing up the levels to make it easier to see the tracing. For a real world, production system, you may want to back off to 0.1.</p>
+</blockquote>
+<h3 id="coding-a-spring-mvc-controller">Coding a Spring MVC controller</h3>
+<p>If you already have a controller, then you’re all set. If not, you can borrow mine!</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto; white-space: pre-wrap; word-wrap: break-word;" tabindex="0" data-language="plaintext"><code><span class="line"><span>@RestController  </span></span>
+<span class="line"><span>public class EmployeeController {  </span></span>
+<span class="line"><span>  </span></span>
+<span class="line"><span>   private static final List&#x3C;Employee> *DB* = new ArrayList&#x3C;>();  </span></span>
+<span class="line"><span>   static {  </span></span>
+<span class="line"><span>      *DB*.add(new Employee("1", "Frodo", "ring bearer"));  </span></span>
+<span class="line"><span>      *DB*.add(new Employee("2", "Bilbo", "burglar"));  </span></span>
+<span class="line"><span>   }  </span></span>
+<span class="line"><span>  </span></span>
+<span class="line"><span>   @GetMapping("/api/employees")  </span></span>
+<span class="line"><span>   List&#x3C;Employee> all() {  </span></span>
+<span class="line"><span>      return *DB*;  </span></span>
+<span class="line"><span>   }  </span></span>
+<span class="line"><span>  </span></span>
+<span class="line"><span>   @GetMapping("/api/employees/{id}")  </span></span>
+<span class="line"><span>   Employee one(@PathVariable String id) {  </span></span>
+<span class="line"><span>      return *DB*.stream() *//* .filter(employee -> employee.getId().equals(id)) *//* .findFirst() *//* .orElseThrow(() -> new RuntimeException("Couldn't find " + id));  </span></span>
+<span class="line"><span>   }  </span></span>
+<span class="line"><span>}</span></span></code></pre>
+<p>With all this, we’re ready to do some tracing!</p>
+<h3 id="tracing-the-application">Tracing the application</h3>
+<p>Fire up the application by running the class that has the @SpringBootApplication annotation. Now on the command line, run this command:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto; white-space: pre-wrap; word-wrap: break-word;" tabindex="0" data-language="plaintext"><code><span class="line"><span>curl -v localhost:8080/api/employees</span></span></code></pre>
+<p>You should see something like this:</p>
+<p><img  width="404" height="348" loading="lazy" decoding="async" src="/_astro/1_eGp8fCLFLWe76Fx-UO32Wg.CKL2gVfD_2vUW7d.webp" >(I actually use <code>brew install jq</code> and pipe the outputs through that, to make it easier to read)</p>
+<p>This shows our little demo data being nicely printed out on the command line. But what can we expect to see if we hop on over to Zipkin at localhost:9411?</p>
+<p>Hit the RUN QUERY button, and you should something like printed out below:</p>
+<p><img  width="800" height="139" loading="lazy" decoding="async" src="/_astro/1_FlTVhX-d0_aFPcB_sEj6hA.DBmbNu0G_Z1AvfKc.webp" >This is the Spring MVC web call just made. The whole duration of that Observation was about 18 ms.</p>
+<p>Click on SHOW and you can see something like this:</p>
+<p><img  width="800" height="729" loading="lazy" decoding="async" src="/_astro/1_c2yqneG1r7Jt-ek3rDV4lQ.Br-9Hsld_ZKo6Qj.webp" >You can see the same duration at the top. It’s also tagged contextually as an “application”.</p>
+<p>You can see bonus tags that context additional content about the web request including:</p>
+<ul>
+<li>exception: <strong>none</strong></li>
+<li>http.url: <strong>/api/employees</strong></li>
+<li>method: <strong>GET</strong></li>
+<li>status: <strong>200</strong></li>
+</ul>
+<p>There is more.</p>
+<p>You may also be interested to know that there is a movement afoot known as OpenTelemetry that strives to have a consistent set of tag names such that ALL tracing tools can offer a more consistent dialect, making it easier for you and I to consume this type of output.</p>
+<p>Micrometer strives to uphold this standard and has shifted many of its tags to fit this nomenclature.</p>
+<blockquote>
+<p>In fine print, you can find its Span ID. A Span ID is kind of a decoder ring issued by Micrometer. They are automatically generated every time you create a new Observation. And they are passed along in thread locals, in web request headers to remote services, returned in web response headers, and even propagated through reactive subscriber contexts. These spans and their IDs make it possible to track the performance of every hop along the way and bring home all the data to trace your app.</p>
+</blockquote>
+<p>With all this, you are able to start tracing your application and see what’s happening.</p>
+<p>Now if this felt a little contrived because there was no database layer or remote web service layer, I hear you. However, this article has gotten a little long, but I’m working on another one, where we will see how to hook in a REAL database!</p>
+<p>If you want to see more articles about Micrometer and Spring Boot in general, then please stay tuned for my next article. But if you simply can’t wait, then check out the video below where we explore how to serve up web templates using Spring Boot 3!</p>
+<p>— Greg</p>
+<p><em>Do you want to get a free tech e-book, be alerted to my discounts, and get even MORE content about SPRING BOOT? Then</em> <a href="https://trnq.st/d2v5"><em>SIGN UP FOR MY NEWSLETTER</em></a><em>.</em></p> </div> <h6>
+Originally published as <i><a rel="canonical" target="_blank" href="https://medium.com/@procoderio/using-micrometer-to-trace-your-spring-boot-app-1fe6ff9982ae">Using Micrometer to trace your Spring Boot app</a></i> </h6> </article>   <footer class="bg-background-dark text-body-dark text-small pb-small pt-4"> <div class="site-container mx-auto px-4"> <div class="flex flex-col items-center md:items-start md:flex-row md:justify-between pb-8 border-b border-background-light"> <nav class="flex flex-row justify-center md:justify-start gap-4 md:gap-8"> <div> <a href="/" class="text-small font-medium text-body-dark uppercase focus:outline-none focus:ring-2 focus:ring-nav-text-active transition-colors text-nav-text hover:text-nav-text-hover">Home</a> </div><div> <a href="/whitelist-instructions" class="text-small font-medium text-body-dark uppercase focus:outline-none focus:ring-2 focus:ring-nav-text-active transition-colors text-nav-text hover:text-nav-text-hover">Whitelist Instructions</a> </div> </nav> </div> <div class="mt-8 flex flex-col md:flex-row justify-between items-center text-body-dark"> <div class="text-sm"> <p class="mt-4">
+Actionable Advice to Advance Your Career
+</p>
+© 2025 Greg L. Turnquist. All rights reserved.
+</div> <nav class="mt-4 md:mt-0"> <ul class="flex flex-wrap gap-6"> <li> <a href="/legal/privacy-policy" class="text-sm text-body-dark"> Privacy Policy </a> </li><li> <a href="/legal/terms-of-service" class="text-sm text-body-dark"> Terms of Service </a> </li> </ul> </nav> </div> </div> </footer> <!--<ThemeSwitcher />--> <script type="module" src="/_astro/Layout.astro_astro_type_script_index_0_lang.DLBBgGU8.js"></script> </body> </html>

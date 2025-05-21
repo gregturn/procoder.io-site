@@ -1,1 +1,0 @@
-import{c as e}from"./cart.CdLNL9JZ.js";document.addEventListener("DOMContentLoaded",()=>{const o=document.getElementById("cart-count");function t(){const n=e.getTotalCount();console.log("[CartButton] Total count updated:",n),o.textContent=n.toString()}window.addEventListener("cartUpdated",t),t()});

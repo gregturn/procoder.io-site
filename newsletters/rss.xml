@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:media="https://procoder.io/rss/"><channel><title>Pro Coder</title><description>Actionable Advice to Accelerate Your Career</description><link>https://dev.procoder.io</link><language>en-us</language><item><title>Making rookie mistakes</title><link>https://dev.procoder.io/newsletters/2025-01-05-making-rookie-mistakes</link><guid isPermaLink="true">https://dev.procoder.io/newsletters/2025-01-05-making-rookie-mistakes</guid><description>...and surviving them!</description><content:encoded>&lt;p&gt;Hey Greg,&lt;/p&gt;
+&lt;p&gt;As a pro coder, I made a terrible rookie mistake!&lt;/p&gt;
+&lt;p&gt;It was really embarrassing.&lt;/p&gt;
+&lt;p&gt;Just spent three days tracking down why my website wouldn’t let me enter edit mode… but my wife’s would!&lt;/p&gt;
+&lt;p&gt;Turns out that on Cloudflare I had enabled “Rocket Loader”.&lt;/p&gt;
+&lt;p&gt;I use Cloudflare because it has superior DNS management and lots of other great features.&lt;/p&gt;
+&lt;p&gt;I assumed that Rocket Loader was another great tool to deploy.&lt;/p&gt;
+&lt;p&gt;Turns out it was kind of like going into your Gentoo Linux machine and rebuilding everything with maximum GCC optimization switched on.&lt;/p&gt;
+&lt;p&gt;Might speed things up. But probably won’t work.&lt;/p&gt;
+&lt;p&gt;The webpage when I’d click “Edit” (i used Divi on all my websites), the edit spinner would pop up…&lt;/p&gt;
+&lt;p&gt;…and just keep spinning.&lt;/p&gt;
+&lt;p&gt;I disabled almost every plug-in I had on my website trying to figure out what had broken things.&lt;/p&gt;
+&lt;p&gt;Speaking of breaking things and putting them back together, check out the sponsor of this article…&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;&lt;span style=&quot;font-size:0.95em;color:rgb(9,194,105);&quot;&gt;Today’s sponsor…&lt;/span&gt;&lt;/p&gt;
+&lt;div style=&quot;display:flex;align-items:center;gap:2em;margin:6px&quot;&gt;
+  &lt;span&gt;&lt;/span&gt;
+  &lt;div style=&quot;flex:1;&quot;&gt;
+    &lt;p&gt;A smart person learns from their mistakes. A WISE person learns from OTHER people&apos;s mistakes.&lt;/p&gt;
+    &lt;p&gt;Grab &lt;strong&gt;&lt;i&gt;12 Rules For Pro Coders&lt;/i&gt;&lt;/strong&gt; and learn from MY mistakes with actionable advice to accelerate your career!&lt;/p&gt;
+    &lt;a href=&quot;/12-rules/offer&quot; style=&quot;display:inline-block;padding:0.5em 1em;background:#2d8cff;color:#fff;border-radius:4px;text-decoration:none;font-weight:bold;&quot;&gt;
+      GET YOUR COPY NOW!
+    &lt;/a&gt;
+  &lt;/div&gt;
+  &lt;div style=&quot;flex:1;text-align:center;&quot;&gt;
+&lt;p&gt;&lt;img __ASTRO_IMAGE_=&quot;{&amp;#x22;src&amp;#x22;:&amp;#x22;@assets/images/books/12RulesforProCoders_Medium.jpg&amp;#x22;,&amp;#x22;alt&amp;#x22;:&amp;#x22;&amp;#x22;,&amp;#x22;index&amp;#x22;:0}&quot;&gt;&lt;/p&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+&lt;hr&gt;
+&lt;p&gt;I had even switched to “development mode” on Cloudflare!&lt;/p&gt;
+&lt;p&gt;Turns out that knob doesn’t disable EVERYTHING.&lt;/p&gt;
+&lt;p&gt;Truth is…I went too fast.&lt;/p&gt;
+&lt;p&gt;I kicked myself knowing I had just made this newbie mistake. I shook my head, upset with myself.&lt;/p&gt;
+&lt;p&gt;I had switched on Rocket Loader along with a few other optimizations without verifying it worked let alone sped things up.&lt;/p&gt;
+&lt;p&gt;And that was my fault.&lt;/p&gt;
+&lt;p&gt;As a pro coder we just always slow down and do things one step at a time.&lt;/p&gt;
+&lt;p&gt;Test one thing and verify it works.&lt;/p&gt;
+&lt;p&gt;Then test another thing. And another. And another.&lt;/p&gt;
+&lt;p&gt;Being a pro coder means taking your time and doing it correctly.&lt;/p&gt;
+&lt;p&gt;A series of correctly done steps and people that don’t code will thing your some kind if frickin’ genius. But you’re just moving things forward one step at a
+time.&lt;/p&gt;
+&lt;p&gt;It’s easy to say but this process requires discipline and commitment. Don’t make the mistake I made.&lt;/p&gt;
+&lt;p&gt;Test your changes. One by one.&lt;/p&gt;
+&lt;p&gt;If you’re a pro coder or plan to become one then stay tuned for my next article. But if you simply can’t wait then check out this video and learn what your most
+valuable resource is when it comes to being a pro coder!&lt;/p&gt;
+&lt;p&gt;— Greg&lt;/p&gt;
+&lt;p&gt;P.S. Consider &lt;a href=&quot;https://youtube.com/@ProCoderIO/join&quot; target=&quot;_blank&quot;&gt;becoming a PREMIUM member&lt;/a&gt; if you want first dibs on EVERYTHING! I’ve already
+shared all this with my members, as it happened, and I appreciate all
+the support.&lt;/p&gt;&lt;p style=&quot;margin-top:2em;&quot;&gt;&lt;a href=&quot;https://www.youtube.com/watch?v=msbZyMAjSYM&quot;&gt;
+                    &lt;img src=&quot;https://img.youtube.com/vi/msbZyMAjSYM/hqdefault.jpg&quot; alt=&quot;Watch on YouTube&quot; style=&quot;width:100%;height:auto;border:0;&quot; /&gt;
+                    &lt;/a&gt;&lt;/p&gt;</content:encoded><media:content type="image/jpeg" width="800" height="457" medium="image" url="https://dev.procoder.io//_astro/1_xI1AopY1TeWfWCdgXcWK0Q.CcZ3tk0K.jpeg"/></item></channel></rss>
